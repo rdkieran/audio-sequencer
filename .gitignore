@@ -1,3 +1,11 @@
+# project stuff
+old-version/
+test-files/
+audio-sequencer-og-files/
+notes
+venv/
+test
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

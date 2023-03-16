@@ -1,0 +1,8 @@
+joseph: hello! welcome to my example audio!
+garland: this program puts together a bunch of voice lines from different files
+joseph: and puts them together in the order of the script!
+pirate: I'm a pirate! scallywags!
+garland: oh dear! what a twist!
+joseph: adventures of joseph and garland, coming right up!
+pirate: I'm gonna kill you!
+garland: what a disaster!
