@@ -1,6 +1,6 @@
 import re                           # clean_line()
-from num2words import num2words     # clean_line()
-from pydub import AudioSegment      # split_audio()
+import num2words                    # clean_line()
+import pydub                        # split_audio()
 import os                           # make_directory(), make_audio_directory(), move_file()
 import shutil                       # make_directory(), make_audio_directory()
 
@@ -12,34 +12,38 @@ def get_all_inputs():
     list_of_audio_files = []
     list_of_transcript_files = []
 
-    ## script_file
-    script_file = input('\nEnter script file (.txt): ')
+    try:
+        ## script_file
+        script_file = input('\nEnter script file (.txt): ')
 
-    ## list_of_speakers
-    number_of_speakers = int(input('\nHow many speakers?:\n> '))
-    if number_of_speakers > 1:
-        print()
-        for speaker in range(0, number_of_speakers):
-            print('Speaker #'+str(speaker+1)+':')
-            speaker_name = input('> ').lower()
-            list_of_speakers.append(speaker_name)
-    else:
-        list_of_speakers.append('narrator')
+        ## list_of_speakers
+        number_of_speakers = int(input('\nHow many speakers?:\n> '))
+        if number_of_speakers > 1:
+            print()
+            for speaker in range(0, number_of_speakers):
+                print('Speaker #'+str(speaker+1)+':')
+                speaker_name = input('> ').lower()
+                list_of_speakers.append(speaker_name)
+        else:
+            list_of_speakers.append('narrator')
 
-    ## list_of_audio_files
-    ## list_of_transcript_files
-    for speaker in list_of_speakers:
-        print('\n---'+speaker.capitalize()+'---')
-        audio_file = input('Audio file (.wav): ')
-        transcript_file = input('Transcript file (.word.srt): ')
+        ## list_of_audio_files
+        ## list_of_transcript_files
+        for speaker in list_of_speakers:
+            print('\n---'+speaker.capitalize()+'---')
+            audio_file = input('Audio file (.wav): ')
+            transcript_file = input('Transcript file (.word.srt): ')
 
-        audio_file = (speaker, audio_file)
-        transcript_file = (speaker, transcript_file)
+            audio_file = (speaker, audio_file)
+            transcript_file = (speaker, transcript_file)
 
-        list_of_audio_files.append(audio_file)
-        list_of_transcript_files.append(transcript_file)
+            list_of_audio_files.append(audio_file)
+            list_of_transcript_files.append(transcript_file)
 
-    return list_of_speakers, list_of_audio_files, list_of_transcript_files, script_file
+        return list_of_speakers, list_of_audio_files, list_of_transcript_files, script_file
+    except:
+        print("\nIncorrect input")
+        exit()
 def example_inputs(): # for testing purposes, to avoid repeatedly entering the same shit over and over
     list_of_speakers = ['andy', 'john', 'narrator']
     list_of_audio_files = ['test\\wav-andy.wav', 'test\\wav-john.wav', 'test\\wav-narrator.wav']
@@ -363,7 +367,7 @@ def split_audio(list_of_audio_files, list_of_speakers, matched_lines):
         make_audio_directory(destination_path[0])
 
         print("\nLoading:", audio_file_name+".wav...")
-        audio = AudioSegment.from_wav(speaker_audio_file)
+        audio = pydub.AudioSegment.from_wav(speaker_audio_file)
         
         file_number = 1
         for line in speaker_matches:
@@ -566,4 +570,16 @@ def main():
     if len(list_of_speakers) > 1: # check for multiple speakers
         sort_files(split_audio_output_folders, script_with_names)
 
-main()
+    print("\n---------\n   END\n---------\n")
+
+    while True:
+        exit_prompt = input("Exit? (Y/n): ")
+        if exit_prompt.lower() == "y":
+            exit()
+        elif exit_prompt.lower() == "n":
+            break
+        else:
+            print("\nInvalid input: '"+exit_prompt+"'\n")
+
+while True:
+    main()

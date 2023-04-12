@@ -5,6 +5,7 @@ audio-sequencer-og-files/
 notes
 venv/
 test
+ico/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
